@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background-color: #000000;
+  color: #e2e8f0;
+  font-family: 'Manrope', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #00f5ff33; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #00f5ff66; }
+
+/* ── Animated grid background ── */
+.bg-grid {
+  background-color: #000;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: grid-drift 20s linear infinite;
+}
+
+@keyframes grid-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+/* ── Scanline overlay ── */
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.15) 2px,
+    rgba(0,0,0,0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Neon gradient text animation ── */
+@keyframes neon-gradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.neon-text {
+  background: linear-gradient(90deg, #00f5ff, #bf00ff, #ff0080, #00f5ff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: neon-gradient 4s ease infinite;
+}
+
+/* ── Neon pulse glows ── */
+@keyframes pulse-cyan {
+  0%, 100% { box-shadow: 0 0 6px rgba(0,245,255,0.3), 0 0 20px rgba(0,245,255,0.1), inset 0 0 6px rgba(0,245,255,0.04); }
+  50%       { box-shadow: 0 0 14px rgba(0,245,255,0.6), 0 0 40px rgba(0,245,255,0.25), inset 0 0 12px rgba(0,245,255,0.08); }
+}
+
+@keyframes pulse-pink {
+  0%, 100% { box-shadow: 0 0 6px rgba(255,0,128,0.3), 0 0 20px rgba(255,0,128,0.1), inset 0 0 6px rgba(255,0,128,0.04); }
+  50%       { box-shadow: 0 0 14px rgba(255,0,128,0.6), 0 0 40px rgba(255,0,128,0.25), inset 0 0 12px rgba(255,0,128,0.08); }
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 6px rgba(57,255,20,0.3), 0 0 20px rgba(57,255,20,0.1), inset 0 0 6px rgba(57,255,20,0.04); }
+  50%       { box-shadow: 0 0 14px rgba(57,255,20,0.6), 0 0 40px rgba(57,255,20,0.25), inset 0 0 12px rgba(57,255,20,0.08); }
+}
+
+.glow-cyan  { animation: pulse-cyan  2.5s ease-in-out infinite; border-color: rgba(0,245,255,0.5) !important; }
+.glow-pink  { animation: pulse-pink  2.5s ease-in-out infinite; border-color: rgba(255,0,128,0.5) !important; }
+.glow-green { animation: pulse-green 2.5s ease-in-out infinite; border-color: rgba(57,255,20,0.5) !important; }
+
+/* ── Glassmorphism panel ── */
+.glass {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ── Neon score badge ── */
+.score-cyan  { color: #00f5ff; text-shadow: 0 0 12px rgba(0,245,255,0.9), 0 0 30px rgba(0,245,255,0.5); }
+.score-pink  { color: #ff0080; text-shadow: 0 0 12px rgba(255,0,128,0.9), 0 0 30px rgba(255,0,128,0.5); }
+.score-green { color: #39ff14; text-shadow: 0 0 12px rgba(57,255,20,0.9),  0 0 30px rgba(57,255,20,0.5); }
+.score-dim   { color: rgba(255,255,255,0.35); }
+
+/* ── Neon send button ── */
+.btn-neon {
+  background: linear-gradient(135deg, #00f5ff, #bf00ff);
+  color: #000;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+.btn-neon:hover:not(:disabled) {
+  box-shadow: 0 0 16px rgba(0,245,255,0.6), 0 0 32px rgba(191,0,255,0.4);
+  transform: scale(1.05);
+}
+.btn-neon:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ── Input bar neon focus ── */
+.neon-input:focus-within {
+  box-shadow: 0 0 0 1px rgba(0,245,255,0.3), 0 0 20px rgba(0,245,255,0.1);
+}
+
+/* ── Fade-in for new messages ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* ── Prose overrides for dark neon ── */
+.prose-neon { color: rgba(255,255,255,0.8); }
+.prose-neon h1,.prose-neon h2,.prose-neon h3 { color: #fff; }
+.prose-neon code { color: #00f5ff; background: rgba(0,245,255,0.08); padding: 1px 6px; border-radius: 3px; }
+.prose-neon pre  { background: #000 !important; border: 1px solid rgba(0,245,255,0.15); }
+.prose-neon a    { color: #00f5ff; }
+.prose-neon strong { color: #fff; }
+
+/* ── Header neon accent bar ── */
+.header-neon {
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,245,255,0.12);
+  box-shadow: 0 0 30px rgba(0,245,255,0.05);
+}

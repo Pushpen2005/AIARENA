@@ -17,7 +17,7 @@ export default function ChatInterface({ messages, onSendMessage }) {
     if (!input.trim() || loading) return;
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3001/invoke', { input });
+      const response = await axios.post('https://aiarena-1.onrender.com/invoke', { input });
       const data = response.data.data;
       onSendMessage(input, data);
       setInput('');

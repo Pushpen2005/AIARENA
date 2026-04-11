@@ -4,7 +4,7 @@ import { success } from 'zod';
 import cors from 'cors';
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:5174', // Adjust this to your frontend's URL
+    origin: 'https://aiarena-three.vercel.app', // Adjust this to your frontend's URL
     methods: ['GET', 'POST'],
     credentials: true
 }));

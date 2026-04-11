@@ -14,7 +14,12 @@ const state = new StateSchema({
         solution_2_reasoning: z.string().default(""),
     })
 });
+function normalizeOutput(output: any): string {
+  if (typeof output === "string") return output;
 
+  // If it's array (ContentBlock[])
+  return output.map((o: any) => o.text || "").join(" ");
+}
 
 const solutionNode: GraphNode<typeof state> = async (state) => {
 
@@ -23,8 +28,8 @@ const solutionNode: GraphNode<typeof state> = async (state) => {
         groqChat.invoke(state.problem)
     ]);
     return {
-        solution_1: mistralResponse.content,
-        solution_2: groqResponse.content,
+        solution_1: normalizeOutput(mistralResponse.content),
+        solution_2: normalizeOutput(groqResponse.content),
     }
 }
 const judgeNode: GraphNode<typeof state> = async (state) => {
